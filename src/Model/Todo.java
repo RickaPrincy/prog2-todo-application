@@ -1,29 +1,27 @@
 package Model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 public class Todo {
-    private int id;
-    private String title;
-    private String description;
-    private LocalDateTime deadline;
-    private int priority;
+    private int id, priority;
+    private String title, description;
+    private Timestamp deadline;
     private boolean done;
 
-    public Todo(int id, String title, String description, LocalDateTime deadline, int priority, boolean done) {
+    public Todo(int id, int priority, String title, String description, Timestamp deadline, boolean done) {
         this.id = id;
+        this.priority = priority;
         this.title = title;
         this.description = description;
         this.deadline = deadline;
-        this.priority = priority;
         this.done = done;
     }
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -44,11 +42,11 @@ public class Todo {
         this.description = description;
     }
 
-    public LocalDateTime getDeadline() {
+    public Timestamp getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
+    public void setDeadline(Timestamp deadline) {
         this.deadline = deadline;
     }
 
