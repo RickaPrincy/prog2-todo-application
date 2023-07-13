@@ -80,7 +80,6 @@ public class MainCLI {
         Todo updateTodo = crud.findTodoById(Utils.getInt());
         if (updateTodo == null) {
             System.out.println("Todo not found");
-            this.waitAction();
         } else {
              Todo updateTodoInfo = Utils.inputAllInformation(false);
             if(crud.updateTodo(
@@ -111,7 +110,7 @@ public class MainCLI {
         }
     }
 
-    public void deleteAllTodo(){
+    public void deleteAllTodos(){
         Utils.printList(List.of("Are you sure ?", "1 -> Yes","2 -> No"));
         int answer = Utils.getResponse(List.of(1,2));
         if(answer == 1){
@@ -132,7 +131,7 @@ public class MainCLI {
                 case 3 -> this.findById();
                 case 4 -> this.updateTodo();
                 case 5 -> this.deleteTodo();
-                case 6 -> this.deleteAllTodo();
+                case 6 -> this.deleteAllTodos();
                 default -> this.status = 0;
             }
             System.out.println();
