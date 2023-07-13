@@ -11,9 +11,9 @@ public class Main {
                 false);
 
         Crud crud = new Crud();
-        crud.deleteAllTodos();
-        crud.insertTodo(todo);
-        crud.updateTodo(1,5,"ricka","play",Timestamp.valueOf("2023-10-03 02:01:03"), false);
+        System.out.println(crud.deleteAllTodos());
+        System.out.println(crud.insertTodo(todo));
+        System.out.println(crud.updateTodo(1, 5, "ricka", "play", Timestamp.valueOf("2023-10-03 02:01:03"), false));
         System.out.println(crud.findAllTodos());
         DatabaseConnection.getInstance().closeConnection();
     }

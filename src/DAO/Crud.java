@@ -2,12 +2,17 @@ package DAO;
 
 import Model.Todo;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Crud {
     public DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
+
     // TODO : insert a new todo into the database
     public boolean insertTodo(Todo todo){
         try {
@@ -33,7 +38,7 @@ public class Crud {
     public Todo findTodoById(int id){
         try{
             String sql = "SELECT * FROM todo WHERE id = " + id;
-            Statement statement = databaseConnection.getConnection().createStatement();
+            Statement statement = databaseConnection.getStatement();
             ResultSet row = statement.executeQuery(sql);
 
             if(row.next()){
@@ -46,8 +51,8 @@ public class Crud {
                     row.getBoolean("done")
                 );
             }
-        }catch(SQLException e){
-            e.printStackTrace();
+        }catch(SQLException error){
+            error.printStackTrace();
         }
         return null;
     }
@@ -57,7 +62,7 @@ public class Crud {
         try {
             ArrayList<Todo> result = new ArrayList<>();
             String sql = "SELECT * FROM todo ORDER BY id;";
-            Statement statement = this.databaseConnection.getConnection().createStatement();
+            Statement statement = this.databaseConnection.getStatement();
             ResultSet rows = statement.executeQuery(sql);
 
             while(rows.next()){
@@ -73,7 +78,7 @@ public class Crud {
 
             return result;
         } catch (SQLException error) {
-            System.out.println(error);
+            error.printStackTrace();
             return null;
         }
     }
@@ -88,7 +93,7 @@ public class Crud {
 
             return findTodoById(id) == null;
         } catch (SQLException error) {
-            System.out.println(error);
+            error.printStackTrace();
             return false;
         }
     }
@@ -101,12 +106,12 @@ public class Crud {
             return this.findAllTodos().size() == 0;
         }
         catch (SQLException error){
-            System.out.println(error);
+            error.printStackTrace();
         }
         return false;
     }
 
-    // TODO : update a single todo by using its id, and giving the new informations.
+    // TODO : update a single todo by using its id, and giving the new information
     public boolean updateTodo(int id, int priority, String title, String description, Timestamp deadline, boolean done){
         try {
             String sql = "UPDATE todo SET priority = ? , title = ?, description = ? , deadline = ?, done = ? WHERE id = ?;";
@@ -126,11 +131,10 @@ public class Crud {
                         temptodo.isDone() == done &&
                         temptodo.getDeadline().toString().equals(deadline.toString());
             }
-
             return true;
         } catch (Exception error) {
-            System.out.println(error);
+            error.printStackTrace();
+            return false;
         }
-        return false;
     }
 }

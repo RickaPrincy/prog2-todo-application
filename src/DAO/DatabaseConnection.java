@@ -29,6 +29,7 @@ public class DatabaseConnection {
     public Connection getConnection() {
         return this.connection;
     }
+
     public static DatabaseConnection getInstance() {
         if(DatabaseConnection.instance == null){
             DatabaseConnection.instance = new DatabaseConnection();
